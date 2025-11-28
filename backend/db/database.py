@@ -20,6 +20,16 @@ class DatabaseManager:
             try:
                 cursor = self.conn.cursor()
                 
+                # Create merchants table
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS merchants (
+                        merchant_mapping_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        merchant_name TEXT,
+                        merchant_name_statement TEXT,
+                        category TEXT
+                    )
+                """)
+
                 # Create transactions table
                 cursor.execute("""
                     CREATE TABLE IF NOT EXISTS transactions (
@@ -28,16 +38,10 @@ class DatabaseManager:
                         original_desc TEXT,
                         amount REAL,
                         category TEXT,
-                        account_source TEXT
-                    )
-                """)
-
-                # Create merchant_rules table
-                cursor.execute("""
-                    CREATE TABLE IF NOT EXISTS merchant_rules (
-                        signature TEXT PRIMARY KEY,
-                        category TEXT,
-                        is_recurring BOOLEAN
+                        account_source TEXT,
+                        merchant_mapping_id INTEGER,
+                        is_recurring BOOLEAN,
+                        FOREIGN KEY(merchant_mapping_id) REFERENCES merchants(merchant_mapping_id)
                     )
                 """)
 
