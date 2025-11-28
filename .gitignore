@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Flutter
+.dart_tool/
+.packages
+.pub/
+build/
+pubspec.lock
+
+# Local Data
+data/*
+!data/
